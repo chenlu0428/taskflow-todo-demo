@@ -1,0 +1,204 @@
+/* ============================================================
+   TaskFlow · 任务管理平台样式
+   采用 CSS 变量实现 亮色/暗色 双主题，模块化布局
+   ============================================================ */
+
+:root{
+  --bg: #f3f5f9;
+  --card: #ffffff;
+  --text: #1f2430;
+  --muted: #8a93a5;
+  --line: #e8ebf1;
+  --primary: #4f6ef7;
+  --primary-soft: #eef1ff;
+  --danger: #ef5566;
+  --danger-soft: #ffecef;
+  --success: #2fbf8f;
+  --warn: #f5a623;
+  --shadow: 0 6px 24px rgba(31,36,48,.08);
+  --radius: 14px;
+}
+
+body.dark{
+  --bg: #12151c;
+  --card: #1c2029;
+  --text: #e8ecf4;
+  --muted: #7d8798;
+  --line: #2a303c;
+  --primary-soft: #222a44;
+  --danger-soft: #33222a;
+  --shadow: 0 6px 24px rgba(0,0,0,.4);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 20px 16px 60px;
+  transition: background .3s, color .3s;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ---------- 顶部 ---------- */
+.app-header{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 18px;
+}
+.brand h1{
+  font-size: 26px; font-weight: 800; letter-spacing: .5px;
+}
+.brand p{ color: var(--muted); font-size: 13px; margin-top:2px; }
+.icon-btn{
+  width:42px; height:42px; border:none; border-radius:12px;
+  background: var(--card); font-size:18px; cursor:pointer;
+  box-shadow: var(--shadow); color: var(--text);
+}
+
+/* ---------- 统计仪表盘 ---------- */
+.stats{
+  display:grid; grid-template-columns: repeat(5, 1fr); gap:10px;
+  margin-bottom:16px;
+}
+.stat-card{
+  background:var(--card); border-radius:var(--radius); padding:14px 8px;
+  text-align:center; box-shadow:var(--shadow); border:1px solid var(--line);
+}
+.stat-num{ display:block; font-size:24px; font-weight:800; color:var(--primary); }
+.stat-card.danger .stat-num{ color:var(--danger); }
+.stat-label{ color:var(--muted); font-size:12px; }
+
+/* ---------- 卡片通用 ---------- */
+.card{
+  background:var(--card); border-radius:var(--radius); padding:16px;
+  box-shadow:var(--shadow); border:1px solid var(--line); margin-bottom:16px;
+}
+
+/* ---------- 新增任务 ---------- */
+.add-row{ display:flex; gap:8px; }
+#taskInput{ flex:1; }
+input, select, textarea{
+  padding:10px 12px; border:1px solid var(--line); border-radius:10px;
+  background:var(--card); color:var(--text); font-size:14px; outline:none;
+  transition: border-color .2s, box-shadow .2s;
+}
+input:focus, select:focus{
+  border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-soft);
+}
+#prioritySel{ width:120px; }
+.btn{
+  padding:10px 18px; border:none; border-radius:10px; font-size:14px;
+  cursor:pointer; font-weight:600; transition: transform .1s, opacity .2s;
+}
+.btn:active{ transform:scale(.96); }
+.btn.primary{ background:var(--primary); color:#fff; }
+.btn.success{ background:var(--success); color:#fff; }
+.btn.gray{ background:#a9b0bd; color:#fff; }
+.btn.ghost{ background:transparent; color:var(--muted); border:1px solid var(--line); }
+.add-extras{ display:flex; gap:8px; margin-top:10px; }
+.add-extras select{ width:110px; }
+#dueDate{ width:160px; }
+#noteInput{ flex:1; }
+
+/* ---------- 工具栏 ---------- */
+.toolbar-top{ display:flex; gap:8px; }
+#searchInput{ flex:1; }
+#sortSel{ width:150px; }
+.toolbar-tabs{ display:flex; gap:6px; margin-top:12px; }
+.ftab{
+  padding:7px 16px; border-radius:20px; border:1px solid var(--line);
+  background:transparent; color:var(--muted); cursor:pointer; font-size:13px;
+}
+.ftab.active{ background:var(--primary); color:#fff; border-color:var(--primary); }
+.tag-chips{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+.chip{
+  padding:5px 14px; border-radius:20px; border:1px solid var(--line);
+  background:transparent; color:var(--muted); cursor:pointer; font-size:13px;
+}
+.chip.active{ background:var(--primary-soft); color:var(--primary); border-color:var(--primary); }
+
+/* ---------- 任务列表 ---------- */
+.task-list{ list-style:none; }
+.task-item{
+  background:var(--card); border-radius:12px; border:1px solid var(--line);
+  padding:14px 16px; margin-bottom:10px; display:flex; align-items:flex-start; gap:12px;
+  box-shadow:var(--shadow); border-left:5px solid var(--primary);
+  animation: fadeIn .25s ease;
+}
+@keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+.task-item.p-high{ border-left-color:var(--danger); }
+.task-item.p-mid{ border-left-color:var(--warn); }
+.task-item.p-low{ border-left-color:#aab2bf; }
+.task-item.done{ opacity:.6; }
+
+.task-check{ margin-top:3px; width:18px; height:18px; accent-color:var(--primary); cursor:pointer; }
+.task-body{ flex:1; min-width:0; }
+.task-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.task-text{ font-size:15px; font-weight:600; word-break:break-all; }
+.task-text.done{ text-decoration:line-through; color:var(--muted); }
+.badge{ font-size:11px; padding:2px 8px; border-radius:10px; font-weight:600; }
+.badge.high{ background:var(--danger-soft); color:var(--danger); }
+.badge.mid{ background:#fff3e0; color:#e8890c; }
+.badge.low{ background:#eef0f4; color:#7d8798; }
+body.dark .badge.mid{ background:#3a2f1d; color:#f5a623; }
+body.dark .badge.low{ background:#2a303c; color:#aab2bf; }
+.tag-badge{ font-size:11px; padding:2px 8px; border-radius:10px; color:#fff; }
+.tag-badge.work{ background:#6c5ce7; }
+.tag-badge.life{ background:#00b894; }
+.tag-badge.study{ background:#0984e3; }
+.tag-badge.shop{ background:#e17055; }
+.due{ font-size:12px; color:var(--muted); }
+.due.overdue{ color:var(--danger); font-weight:700; }
+.task-note{ color:var(--muted); font-size:13px; margin-top:6px; word-break:break-all; }
+
+.task-actions{ display:flex; gap:6px; }
+.icon-btn-sm{
+  border:none; background:transparent; cursor:pointer; font-size:16px;
+  padding:4px 6px; border-radius:8px; color:var(--muted);
+}
+.icon-btn-sm:hover{ background:var(--primary-soft); color:var(--primary); }
+.icon-btn-sm.del:hover{ background:var(--danger-soft); color:var(--danger); }
+
+.edit-input{ flex:1; font-size:15px; font-weight:600; }
+
+/* 空状态 */
+.empty{
+  text-align:center; color:var(--muted); padding:48px 0;
+}
+.empty .big{ font-size:44px; margin-bottom:10px; }
+
+/* ---------- 批量操作 ---------- */
+.batch-bar{ display:flex; gap:8px; align-items:center; }
+.spacer{ flex:1; }
+
+/* ---------- 底部 ---------- */
+.app-footer{ text-align:center; color:var(--muted); font-size:12px; margin-top:20px; }
+
+/* ---------- Toast ---------- */
+.toast-wrap{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; gap:8px; z-index:100;
+}
+.toast{
+  padding:12px 20px; border-radius:10px; background:var(--card); color:var(--text);
+  box-shadow:var(--shadow); font-size:14px; opacity:0; transform:translateY(10px);
+  transition:all .3s; border:1px solid var(--line);
+}
+.toast.show{ opacity:1; transform:none; }
+.toast-success{ border-left:4px solid var(--success); }
+.toast-danger{ border-left:4px solid var(--danger); }
+.toast-warn{ border-left:4px solid var(--warn); }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 640px){
+  body{ padding:12px 10px 50px; }
+  .stats{ grid-template-columns: repeat(3, 1fr); }
+  .add-row{ flex-wrap:wrap; }
+  #prioritySel{ width:100%; }
+  .add-extras{ flex-wrap:wrap; }
+  .toolbar-top{ flex-direction:column; }
+  #sortSel{ width:100%; }
+  .batch-bar{ flex-wrap:wrap; }
+}
