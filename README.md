@@ -22,5 +22,5 @@ HTML5 + CSS3 + ES6 原生JavaScript + LocalStorage本地存储
 4. 完善边界处理：空输入、重复内容、编辑为空自动删除、防误删确认
 
 ## 项目地址
-🔗 源码仓库：https://github.com/xxx/todo-list-vanilla-js
-🔗 在线预览：https://xxx.github.io/todo-list-vanilla-js/
+🔗 源码仓库：https://github.com/chenlu0428/taskflow-todo-demo
+🔗 在线预览：https://chenlu0428.github.io/taskflow-todo-demo/
